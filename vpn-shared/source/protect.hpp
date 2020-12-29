@@ -35,7 +35,7 @@ typedef int SOCKET;
 
 namespace orc {
 
-void setTunIface(std::string tunIface);
+void setTunIface(const std::string &iface);
 std::string getTunIface();
 
 int Protect(SOCKET socket, int (*attach)(SOCKET, const sockaddr *, socklen_t)

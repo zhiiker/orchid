@@ -4,7 +4,7 @@
 namespace orc {
     std::string tunIface;
 
-    void setTunIface(std::string iface) {
+    void setTunIface(const std::string &iface) {
         tunIface = std::move(iface);
     }
 

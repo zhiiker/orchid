@@ -33,6 +33,7 @@
 #include "error.hpp"
 #include "log.hpp"
 #include "port.hpp"
+#include "protect.hpp"
 #include "transport.hpp"
 #include "tunnel.hpp"
 

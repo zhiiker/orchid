@@ -10,7 +10,7 @@
 
 namespace orc {
 
-std::optional<std::string> default_gateway_outside_tun(std::string tun)
+std::optional<std::string> default_gateway_outside_tun(const std::string &tun)
 {
     char buf[1024];
     FILE *f = popen("route -n", "r");
@@ -42,11 +42,13 @@ std::optional<std::string> default_gateway_outside_tun(std::string tun)
 }
 
 bool vpn_protect(int s) {
-    auto iface = default_gateway_outside_tun(getTunIface());
-    if (!iface) {
+    auto oiface = default_gateway_outside_tun(getTunIface());
+    if (!oiface) {
         return false;
     }
-    return setsockopt(s, SOL_SOCKET, SO_BINDTODEVICE, iface->c_str(), iface->length()) >= 0;}
+    auto iface = *oiface;
+    return setsockopt(s, SOL_SOCKET, SO_BINDTODEVICE, iface.c_str(), iface.length()) >= 0;
+}
 
 int Protect(int socket, int (*attach)(int, const sockaddr *, socklen_t), const sockaddr *address, socklen_t length) {
 
